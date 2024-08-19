@@ -16,21 +16,37 @@
     </style>
   </head>
   <body>
-    <canvas
-      id="canvas"
-      width="1280"
-      height="720"
+    <div
       style="
-        position: absolute;
-        margin: auto;
-        right: 0;
-        left: 0;
-        top: 0;
-        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
       "
-    ></canvas>
+    >
+      <canvas
+        id="canvas"
+        width="1280"
+        height="720"
+        style="margin: 0; border-radius: 10px"
+      ></canvas>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 45%;
+          margin: auto;
+          font-family: 'Courier New', Courier, monospace;
+        "
+      >
+        <h3 id="p1-score">PLAYER ONE: 0</h3>
+        <h3 id="p2-score">PLAYER TWO: 0</h3>
+      </div>
+    </div>
     <script>
-      document.onload = () => {
+      window.onload = (e) => {
         const canvas = document.getElementById("canvas");
         canvas.width = window.innerWidth * 0.75;
         canvas.height = window.innerHeight * 0.75;
@@ -149,7 +165,7 @@
         ) {
           ball.x = canvas.width / 2;
           ball.y = canvas.height - 30;
-          score.p1++;
+          score.p2++;
         }
 
         if (
@@ -159,7 +175,7 @@
         ) {
           ball.x = canvas.width / 2;
           ball.y = canvas.height - 30;
-          score.p2++;
+          score.p1++;
         }
 
         ball.x += ball.dx;
@@ -192,6 +208,13 @@
 
         ballCollisions();
         playerCollisions();
+
+        document.getElementById(
+          "p1-score"
+        ).innerText = `PLAYER ONE: ${score.p1}`;
+        document.getElementById(
+          "p2-score"
+        ).innerText = `PLAYER TWO: ${score.p2}`;
       };
 
       const startGame = () => {
