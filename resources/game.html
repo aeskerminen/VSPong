@@ -146,12 +146,6 @@
 
       const ballCollisions = () => {
         if (
-          ball.x + ball.dx > canvas.width - ballRadius ||
-          ball.x + ball.dx < ballRadius
-        ) {
-          ball.dx *= -1;
-        }
-        if (
           ball.y + ball.dy > canvas.height - ballRadius ||
           ball.y + ball.dy < ballRadius
         ) {
@@ -163,9 +157,7 @@
           player1.y < ball.y &&
           ball.y > player1.y - playerDims.y
         ) {
-          ball.x = canvas.width / 2;
-          ball.y = canvas.height - 30;
-          score.p2++;
+          ball.dx *= -1;
         }
 
         if (
@@ -173,9 +165,19 @@
           player2.y < ball.y &&
           ball.y > player2.y - playerDims.y
         ) {
+          ball.dx *= -1;
+        }
+
+        if (ball.x > canvas.width - ballRadius / 2) {
           ball.x = canvas.width / 2;
           ball.y = canvas.height - 30;
           score.p1++;
+        }
+
+        if (ball.x < ballRadius / 2) {
+          ball.x = canvas.width / 2;
+          ball.y = canvas.height - 30;
+          score.p2++;
         }
 
         ball.x += ball.dx;
