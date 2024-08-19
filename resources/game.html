@@ -43,11 +43,16 @@
       const playerDims = { x: 10, y: 60 };
       const PLAYER_SPEED = 3;
 
+      let score = { p1: 0, p2: 0 };
+
       let ball = {
         x: canvas.width / 2,
         y: canvas.height - 30,
         dx: 2,
         dy: -2,
+        reset: () => {
+          (this.x = canvas.width / 2), (this.y = canvas.height - 30);
+        },
       };
 
       let player1 = {
@@ -137,32 +142,46 @@
           ball.dy *= -1;
         }
 
+        if (
+          ball.x <= player1.x + playerDims.x &&
+          player1.y < ball.y &&
+          ball.y > player1.y - playerDims.y
+        ) {
+          ball.x = canvas.width / 2;
+          ball.y = canvas.height - 30;
+          score.p1++;
+        }
+
+        if (
+          ball.x >= player2.x - playerDims.x &&
+          player2.y < ball.y &&
+          ball.y > player2.y - playerDims.y
+        ) {
+          ball.x = canvas.width / 2;
+          ball.y = canvas.height - 30;
+          score.p2++;
+        }
+
         ball.x += ball.dx;
         ball.y += ball.dy;
       };
 
       const playerCollisions = () => {
-
-        if(player1.y + player1.dy > 0 && player1.dy < 0)
-        {
-          player1.y += player1.dy;
-        }  
-
-        if(player1.y + playerDims.y < canvas.height && player1.dy > 0) {
+        if (player1.y + player1.dy > 0 && player1.dy < 0) {
           player1.y += player1.dy;
         }
 
-        if(player2.y + player2.dy > 0 && player2.dy < 0)
-        {
-          player2.y += player2.dy;
-        }  
+        if (player1.y + playerDims.y < canvas.height && player1.dy > 0) {
+          player1.y += player1.dy;
+        }
 
-        if(player2.y + playerDims.y < canvas.height && player2.dy > 0) {
+        if (player2.y + player2.dy > 0 && player2.dy < 0) {
           player2.y += player2.dy;
         }
 
-     
-
+        if (player2.y + playerDims.y < canvas.height && player2.dy > 0) {
+          player2.y += player2.dy;
+        }
       };
 
       const tick = () => {
