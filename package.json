@@ -13,8 +13,8 @@
   "main": "./extension.js",
   "contributes": {
     "commands": [{
-      "command": "helloworld.helloWorld",
-      "title": "Hello World"
+      "command": "pong.Pong",
+      "title": "Pong!?"
     }]
   },
   "scripts": {
