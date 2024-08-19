@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        background: #eee;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      width="1280"
+      height="720"
+      style="
+        position: absolute;
+        margin: auto;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom: 0;
+      "
+    ></canvas>
+    <script>
+      document.onload = () => {
+        const canvas = document.getElementById("canvas");
+        canvas.width = window.innerWidth * 0.75;
+        canvas.height = window.innerHeight * 0.75;
+      };
+    </script>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const ballRadius = 10;
+      const playerDims = { x: 10, y: 60 };
+      const PLAYER_SPEED = 3;
+
+      let ball = {
+        x: canvas.width / 2,
+        y: canvas.height - 30,
+        dx: 2,
+        dy: -2,
+      };
+
+      let player1 = {
+        x: canvas.width * 0.01,
+        y: canvas.height / 2,
+        dy: 0,
+      };
+
+      let player2 = {
+        x: canvas.width - canvas.width * 0.01 - playerDims.x,
+        y: canvas.height / 2,
+        dy: 0,
+      };
+
+      window.addEventListener("keydown", (e) => {
+        switch (e.which) {
+          case 38: {
+            player1.dy = 1 * PLAYER_SPEED;
+            break;
+          }
+          case 40: {
+            player1.dy = -1 * PLAYER_SPEED;
+            break;
+          }
+          case 87: {
+            player2.dy = 1 * PLAYER_SPEED;
+            break;
+          }
+          case 83: {
+            player2.dy = -1 * PLAYER_SPEED;
+            break;
+          }
+        }
+      });
+
+      window.addEventListener("keyup", (e) => {
+        switch (e.which) {
+          case 38: {
+            player1.dy = 0;
+            break;
+          }
+          case 40: {
+            player1.dy = 0;
+            break;
+          }
+          case 87: {
+            player2.dy = 0;
+            break;
+          }
+          case 83: {
+            player2.dy = 0;
+            break;
+          }
+        }
+      });
+
+      const drawPlayer = (player) => {
+        ctx.beginPath();
+
+        ctx.rect(player.x, player.y, playerDims.x, playerDims.y);
+
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+
+        ctx.closePath();
+      };
+
+      const drawBall = () => {
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+      };
+
+      const ballCollisions = () => {
+        if (
+          ball.x + ball.dx > canvas.width - ballRadius ||
+          ball.x + ball.dx < ballRadius
+        ) {
+          ball.dx *= -1;
+        }
+        if (
+          ball.y + ball.dy > canvas.height - ballRadius ||
+          ball.y + ball.dy < ballRadius
+        ) {
+          ball.dy *= -1;
+        }
+
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+      };
+
+      const playerCollisions = () => {
+
+        if(player1.y + player1.dy > 0 && player1.dy < 0)
+        {
+          player1.y += player1.dy;
+        }  
+
+        if(player1.y + playerDims.y < canvas.height && player1.dy > 0) {
+          player1.y += player1.dy;
+        }
+
+        if(player2.y + player2.dy > 0 && player2.dy < 0)
+        {
+          player2.y += player2.dy;
+        }  
+
+        if(player2.y + playerDims.y < canvas.height && player2.dy > 0) {
+          player2.y += player2.dy;
+        }
+
+     
+
+      };
+
+      const tick = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawPlayer(player1);
+        drawPlayer(player2);
+        drawBall();
+
+        ballCollisions();
+        playerCollisions();
+      };
+
+      const startGame = () => {
+        setInterval(tick, 10);
+      };
+
+      startGame();
+    </script>
+  </body>
+</html>
