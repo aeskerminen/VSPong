@@ -82,7 +82,7 @@
       };
 
       let player2 = {
-        x: canvas.width - 2 * playerDims.x,
+        x: canvas.width - 3 * playerDims.x,
         y: canvas.height / 2,
         dy: 0,
       };
@@ -90,19 +90,19 @@
       window.addEventListener("keydown", (e) => {
         switch (e.which) {
           case 38: {
-            player1.dy = PLAYER_SPEED;
+            player2.dy = -PLAYER_SPEED;
             break;
           }
           case 40: {
-            player1.dy = -PLAYER_SPEED;
-            break;
-          }
-          case 87: {
             player2.dy = PLAYER_SPEED;
             break;
           }
+          case 87: {
+            player1.dy = -PLAYER_SPEED;
+            break;
+          }
           case 83: {
-            player2.dy = -PLAYER_SPEED;
+            player1.dy = PLAYER_SPEED;
             break;
           }
         }
@@ -112,12 +112,12 @@
         switch (e.which) {
           case 38:
           case 40: {
-            player1.dy = 0;
+            player2.dy = 0;
             break;
           }
           case 83:
           case 87: {
-            player2.dy = 0;
+            player1.dy = 0;
             break;
           }
         }
