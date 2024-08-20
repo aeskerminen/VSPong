@@ -47,6 +47,8 @@
     </div>
     <script>
       const canvas = document.getElementById("canvas");
+      const p1s = document.getElementById("p1-score");
+      const p2s = document.getElementById("p2-score");
 
       document.onload = (e) => {
         canvas.width = Math.round(window.innerWidth * 0.9);
@@ -89,19 +91,19 @@
       window.addEventListener("keydown", (e) => {
         switch (e.which) {
           case 38: {
-            player1.dy = 1 * PLAYER_SPEED;
+            player1.dy = PLAYER_SPEED;
             break;
           }
           case 40: {
-            player1.dy = -1 * PLAYER_SPEED;
+            player1.dy = -PLAYER_SPEED;
             break;
           }
           case 87: {
-            player2.dy = 1 * PLAYER_SPEED;
+            player2.dy = PLAYER_SPEED;
             break;
           }
           case 83: {
-            player2.dy = -1 * PLAYER_SPEED;
+            player2.dy = -PLAYER_SPEED;
             break;
           }
         }
@@ -109,19 +111,13 @@
 
       window.addEventListener("keyup", (e) => {
         switch (e.which) {
-          case 38: {
-            player1.dy = 0;
-            break;
-          }
+          case 38:
           case 40: {
             player1.dy = 0;
             break;
           }
+          case 83:
           case 87: {
-            player2.dy = 0;
-            break;
-          }
-          case 83: {
             player2.dy = 0;
             break;
           }
@@ -205,6 +201,11 @@
         }
       };
 
+      const updateScore = () => {
+        p1s.innerText = `PLAYER ONE: ${score.p1}`;
+        p2s.innerText = `PLAYER TWO: ${score.p2}`;
+      };
+
       const tick = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawPlayer(player1);
@@ -214,12 +215,7 @@
         ballCollisions();
         playerCollisions();
 
-        document.getElementById(
-          "p1-score"
-        ).innerText = `PLAYER ONE: ${score.p1}`;
-        document.getElementById(
-          "p2-score"
-        ).innerText = `PLAYER TWO: ${score.p2}`;
+        updateScore();
       };
 
       const startGame = () => {
