@@ -46,14 +46,17 @@
       </div>
     </div>
     <script>
-      window.onload = (e) => {
-        const canvas = document.getElementById("canvas");
-        canvas.width = window.innerWidth * 0.75;
-        canvas.height = window.innerHeight * 0.75;
-      };
-    </script>
-    <script>
       const canvas = document.getElementById("canvas");
+
+      document.onload = (e) => {
+        canvas.width = Math.round(window.innerWidth * 0.9);
+        canvas.height = Math.round(window.innerHeight * 0.75);
+      };
+      document.addEventListener("resize", () => {
+        canvas.width = Math.round(window.innerWidth * 0.9);
+        canvas.height = Math.round(window.innerHeight * 0.75);
+      });
+
       const ctx = canvas.getContext("2d");
       const ballRadius = 10;
       const playerDims = { x: 10, y: 60 };
@@ -72,13 +75,13 @@
       };
 
       let player1 = {
-        x: canvas.width * 0.01,
+        x: 2 * playerDims.x,
         y: canvas.height / 2,
         dy: 0,
       };
 
       let player2 = {
-        x: canvas.width - canvas.width * 0.01 - playerDims.x,
+        x: canvas.width - 2 * playerDims.x,
         y: canvas.height / 2,
         dy: 0,
       };

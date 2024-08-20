@@ -32,17 +32,15 @@ function activate(context) {
 
     console.log(htmlSrc);
 
-    /*	
     const updateGameState = () => {
 		view.title = ["Pong!!", "Pong?", "Pong..."][
         Math.round(Math.random() * 3) - 1
       ];
-      view.webview.html = htmlSrc;
     };
 
     const interval = setInterval(() => {
       updateGameState();
-    }, 1000);
+    }, 5000);
 
     view.onDidDispose(
       () => {
@@ -51,7 +49,6 @@ function activate(context) {
       null,
       context.subscriptions
     );
-	*/
   });
 
   context.subscriptions.push(disposable);
