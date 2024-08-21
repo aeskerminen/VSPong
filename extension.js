@@ -29,13 +29,10 @@ function activate(context) {
     );
     const htmlSrc = fs.readFileSync(htmlPath.fsPath, "utf-8");
     view.webview.html = htmlSrc;
-
-    console.log(htmlSrc);
+    const names = ["Pong!!", "Pong?", "Pong..."];
 
     const updateGameState = () => {
-		view.title = ["Pong!!", "Pong?", "Pong..."][
-        Math.round(Math.random() * 3) - 1
-      ];
+      view.title = names[Math.floor(Math.random() * names.length)];
     };
 
     const interval = setInterval(() => {

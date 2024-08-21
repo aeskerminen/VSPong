@@ -61,7 +61,7 @@
       const ctx = canvas.getContext("2d");
       const ballRadius = 10;
       const playerDims = { x: 10, y: 60 };
-      const PLAYER_SPEED = 3;
+      const playerSpeed = 3;
 
       let score = { p1: 0, p2: 0 };
 
@@ -90,19 +90,19 @@
       window.addEventListener("keydown", (e) => {
         switch (e.which) {
           case 38: {
-            player2.dy = -PLAYER_SPEED;
+            player2.dy = -playerSpeed;
             break;
           }
           case 40: {
-            player2.dy = PLAYER_SPEED;
+            player2.dy = playerSpeed;
             break;
           }
           case 87: {
-            player1.dy = -PLAYER_SPEED;
+            player1.dy = -playerSpeed;
             break;
           }
           case 83: {
-            player1.dy = PLAYER_SPEED;
+            player1.dy = playerSpeed;
             break;
           }
         }
