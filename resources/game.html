@@ -59,7 +59,9 @@
       });
 
       const ctx = canvas.getContext("2d");
+
       const ballRadius = 10;
+
       const playerDims = { x: 10, y: 60 };
       const playerSpeed = 3;
 
@@ -178,8 +180,8 @@
           score.p2++;
         }
 
-        ball.x += ball.dx;
-        ball.y += ball.dy;
+        ball.x += ball.dx * ballSpeed;
+        ball.y += ball.dy * ballSpeed;
       };
 
       const playerCollisions = () => {
@@ -218,7 +220,7 @@
       };
 
       const startGame = () => {
-        setInterval(tick, 10);
+        setInterval(tick, 5);
       };
 
       startGame();
